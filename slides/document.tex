@@ -16,6 +16,7 @@
 \usepackage{etoolbox,refcount}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{svg}
 
 %########################################################
 %################## ARGMAX DECLARATION
@@ -107,7 +108,7 @@
 %			\textbf{Title} & \textbf{Description} & \textbf{Cat1} & \textbf{Cat2} & \textbf{Cat3}\\
 %			\hline
 %			1&2&3&4&5
-%		\end{tabular}
+%		\end{r}
 %		\\Some text
 %	}
 	\section{The Problem: Categorization}
@@ -190,8 +191,44 @@
 		}
 		\subsection{Embedding}
 		\frame{
-			\frametitle{Temp Frame}
-			This slide is temp.
+			\frametitle{Word Embedding}
+			\begin{quote}
+				… when the input to a neural network contains symbolic categorical features (e.g. features that take one of k distinct symbols, such as words from a closed vocabulary), it is common to associate each possible feature value (i.e., each word in the vocabulary) with a d-dimensional vector for some d. These vectors are then considered parameters of the model, and are trained jointly with the other parameters.
+			\end{quote}
+		— Page 49, \href{http://amzn.to/2wycQKA}{Neural Network Methods in Natural Language Processing}, 2017.
+		}
+		\frame{
+			\frametitle{Word Embedding}
+			It requires that document text be cleaned and prepared such that each word is one-hot encoded. The size of the vector space is specified as part of the model, such as 50, 100, or 300 dimensions. The vectors are initialized with small random numbers. \textbf{The embedding layer is used on the front end of a neural network and is fit in a supervised way using the Backpropagation algorithm}.\footnote{From the article \href{https://machinelearningmastery.com/what-are-word-embeddings/}{What Are Word Embeddings for Text?
+			}}
+		}
+		\frame{
+			\frametitle{One-Hot Encoding for Word Embedding}
+			\begin{enumerate}
+				\item Hello, how are you!
+				\item Win money, win from home.
+				\item Call me now
+				\item Hello, Call you tomorrow?
+			\end{enumerate}
+			{\small\begin{math}
+			vocabulary = \left\{are, call, from, hello, home, how, me, money, now, tomorrow, win, you\right\}
+			\end{math}}\\
+		{\tabcolsep=0.11cm\begin{tabular}{l|cccccccccccc}
+			Word & are & call & from & hello & home & how & me & money & now & tomorrow & win & you\\
+			\hline
+			Value & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12
+		\end{tabular}}
+		{\begin{tabular}{l|lllll}
+			Sentence \\ \hline
+			Hello, how are you! & 4&6&1&12&0\\
+			Win money, win from home. & 11&8&11&3&5\\
+			Call me now & 2&7&9&0&0\\
+			Hello, Call you tomorrow? & 4&2&12&10&0
+		\end{tabular}}
+		}
+		\frame{
+			\frametitle{Number of Parameters}
+			Let's say that we want to embed sentences(or words) into a $\mathbb{R}^n$ vector space. If m is the size of vocabulary, our Embedding layer has $m*n$ parameters that can be fitted in a supervised way using the Backpropagation.
 		}
 		
 	\section{Classification Algorithms}
@@ -222,9 +259,6 @@
 				\end{column}
 			\end{columns}
 		}
-		%\subsection{Count Vectorizer}
-			
-		%\subsection{Bayes Classifier}
 			\frame{
 				\frametitle{Bayes Classifier: Naive One!}
 				It is possible to show that accuracy is minimized, on average, by a
@@ -270,11 +304,11 @@
 			}
 			\frame{
 				\frametitle{Size of Vocabulary}
+				We can determine the size of our vocabulary.
 				\begin{center}
 					\includegraphics[width=.6\linewidth]{images/plot1.png}\\
-					It is convex!
-					(to be completed)
 				\end{center}
+				It is convex!
 			}
 			\frame{
 				\frametitle{Laplace/ Lidstone Smoothing Parameter($\alpha$)}
@@ -284,32 +318,21 @@
 					(to be completed)
 				\end{center}
 			}
-			\frame{
-				\frametitle{Grid Search}
-			}
 		\subsection{CNN}
-	%\section{First approach: Naive Bayes}
 		
-	%\section{Second approach: CNN}
-		%\subsection{Sequence of vectors}
 			\frame{
-				\frametitle{Temp Frame}
-				This slide is temp.
+				\frametitle{CNN Over Embedding Layer}
+				\begin{center}
+					\includegraphics[height=8cm]{images/nn.png}
+				\end{center}
 			}
-		%\subsection{How We Embed}
 			\frame{
-				\frametitle{Temp Frame}
-				This slide is temp.
+				\frametitle{CNN Over Embedding Layer}
+				\includegraphics[width=\linewidth]{images/concat.png}
 			}
-		%\subsection{Patterns with CNN}
 			\frame{
-				\frametitle{Temp Frame}
-				This slide is temp.
-			}
-		%\subsection{Dense Classifier}
-			\frame{
-				\frametitle{Temp Frame}
-				This slide is temp.
+				\frametitle{CNN Over Embedding Layer}
+				\includegraphics[width=\linewidth]{images/comp_table.png}
 			}
 		\subsection{Linear SVM}
 		\frame{
