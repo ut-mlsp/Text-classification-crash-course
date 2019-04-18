@@ -194,6 +194,16 @@
 		}
 		
 	\section{Classification Algorithms}
+	\frame{
+		\frametitle{Classification Algorithms}
+		We used different classifiers and applied different models on the data. The classifiers we tested are:
+			\begin{itemize}
+				\item Naive Bayes
+				\item Linear Support Vector Machine(SVM)
+				\item Passive Aggressive
+				\item Convolutional Neural Network(CNN)
+			\end{itemize}
+	}
 		\subsection{Naive Bayes}
 		\frame{
 			\frametitle{Naive Bayes Classifier}
@@ -276,16 +286,6 @@
 			\frame{
 				\frametitle{Grid Search}
 			}
-		\subsection{SVM}
-		\frame{
-				\frametitle{Temp Frame}
-				This slide is temp.
-			}
-		\subsection{Passive Aggressive}
-		\frame{
-				\frametitle{Temp Frame}
-				This slide is temp.
-			}
 		\subsection{CNN}
 	%\section{First approach: Naive Bayes}
 		
@@ -310,6 +310,45 @@
 				\frametitle{Temp Frame}
 				This slide is temp.
 			}
+		\subsection{Linear SVM}
+		\frame{
+			\frametitle{Linear SVM}
+			\begin{itemize}
+				\item A non-probablistic classifier
+				\item A discriminative classifier formally defined by a separating hyperplane
+				\item The algorithm outputs an optimal hyperplane which categorizes new examples
+				\item A good separation is achieved by the hyperplane that has the largest distance to the nearest training-data point of any class
+			\end{itemize}
+		}
+		\frame{
+			\frametitle{Linear SVM: Behind the Scene}
+			Given training vectors $x_i \in \mathbb{R}^p$, i=1,...,n, in two classes, and a vector $y \in \{1, -1\}^n$, SVM classifier solves the following primal problem:
+			\scriptsize \begin{align*}
+			\begin{aligned}
+			\min_ {w, b, \zeta} \frac{1}{2} w^T w + C \sum_{i=1}^{n} \zeta_i\\\begin{split}\textrm {subject to } & y_i (w^T \phi (x_i) + b) \geq 1 - \zeta_i,\\& \zeta_i \geq 0, i=1, ..., n\end{split}
+			\end{aligned}
+			\end{align*}
+			\normalsize Its dual is:
+			\scriptsize \begin{align*}
+			\begin{aligned}
+			\min_{\alpha} \frac{1}{2} \alpha^T Q \alpha - e^T \alpha\\
+			\begin{split}\textrm {subject to } & y^T \alpha = 0\\& 0 \leq \alpha_i \leq C, i=1, ..., n
+			\end{split}
+			\end{aligned}
+			\end{align*}
+		}
+		\frame{
+			\frametitle{Linear SVM: Behind the Scene(cont'd)}
+			where $e$ is the vector of all ones, $C > 0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij} \equiv y_i y_j K(x_i, x_j)$, where $K(x_i, x_j) = \phi (x_i)^T \phi (x_j)$ is the kernel. Here, training vectors are implicitly mapped into a higher (maybe infinite) dimensional space by the function $\phi$. The decision function is:
+			\begin{equation*}
+			\operatorname{sgn}(\sum_{i=1}^n y_i \alpha_i K(x_i, x) + \rho)
+			\end{equation*}
+		}
+		\subsection{Passive Aggressive}
+		\frame{
+			\frametitle{Temp Frame}
+			This slide is temp.
+		}
 			
 	\section{A Comparison among Models}
 	
