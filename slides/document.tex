@@ -1,14 +1,62 @@
 \documentclass[aspectratio=169, handout]{beamer}
 
+%########################################################
+%####################### SET THEME
+%########################################################
 \usetheme{Goettingen}
 
+%########################################################
+%##################### ADD PACKAGES
+%########################################################
 \usepackage{tabularx}
 \usepackage{amsmath}
+\usepackage{etoolbox,refcount}
+\usepackage{multicol}
+
+%########################################################
+%################## ARGMAX DECLARATION
+%########################################################
 \DeclareMathOperator*{\argmax}{arg\,max}
 
-\title{Text Classification with Python}
-\author{Majid Hajiheidari}
+%########################################################
+%############ AUTOMULTICOLITEMIZE ENVIRONMENT
+%########################################################
+\newcounter{countitems}
+\newcounter{nextitemizecount}
+\newcommand{\setupcountitems}{%
+  \stepcounter{nextitemizecount}%
+  \setcounter{countitems}{0}%
+  \preto\item{\stepcounter{countitems}}%
+}
+\makeatletter
+\newcommand{\computecountitems}{%
+  \edef\@currentlabel{\number\c@countitems}%
+  \label{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\newcommand{\nextitemizecount}{%
+  \getrefnumber{countitems@\number\c@nextitemizecount}%
+}
+\newcommand{\previtemizecount}{%
+  \getrefnumber{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\makeatother    
+\newenvironment{AutoMultiColItemize}{%
+\ifnumcomp{\nextitemizecount}{>}{3}{\begin{multicols}{2}}{}%
+\setupcountitems\begin{itemize}}%
+{\end{itemize}%
+\unskip\computecountitems\ifnumcomp{\previtemizecount}{>}{3}{\end{multicols}}{}}
 
+
+%########################################################
+%###################### TITLE PAGE
+%########################################################
+\title{An Experience with Text Classification in Datadays 2019}
+\author{Majid Hajiheidari \and Amirmohammad Asadi}
+\date{April, 2019}
+
+%########################################################
+%####################### DOCUMENT
+%########################################################
 \begin{document}
 	\frame{\titlepage}
 	\section{Introduction: Divar Dataset}
@@ -30,7 +78,7 @@
 	}
 	\frame{
 		\frametitle{Columns}
-		\begin{itemize}
+		\begin{AutoMultiColItemize}
 			\item id
 			\item archive\_by\_user
 			\item published\_at
@@ -47,7 +95,7 @@
 			\item brand
 			\item year
 			\item type
-		\end{itemize}
+		\end{AutoMultiColItemize}
 	}
 %	\frame{
 %		\frametitle{Title, Description, and Category}
@@ -112,7 +160,7 @@
 					vocabulary = \left\{are, call, from, hello, home, how, me, money, now, tomorrow, win, you\right\}
 					\end{math}
 					\item Then, we vectorize each sentence based on the occurness of each word:
-					\footnotesize\begin{tabular}{l|llllllllllll}
+					\scriptsize\begin{tabular}{l|llllllllllll}
 						& are & call & from & hello & home & how & me & money & now & tom... & win & you \\\hline
 						1       & 1   & 0    & 0    & 1     & 0    & 1   & 0  & 0     & 0   & 0        & 0   & 1   \\
 						2 & 0   & 0    & 1    & 0     & 1    & 0   & 0  & 1     & 0   & 0        & 2   & 0   \\
@@ -134,7 +182,7 @@
 				observation with predictor vector $x_0$ to the class j for which\\
 				\begin{center}
 					\begin{math}
-						P\left(Y=j\ \middle|\ \bold{X}=\bold{x}\right)
+						P\left(Y=j\ \middle|\ \mathbf{X}=\mathbf{x}\right)
 					\end{math}
 				\end{center}
 				is largest.
@@ -146,13 +194,13 @@
 					\item $X_1, X_2, \ldots, and\ X_m$ are independent from each other;
 					\item $X_1, X_2, \ldots, X_m\mid Y \thicksim MN(\cdot, p_1, p_2, \ldots, p_m)$
 				\end{enumerate}
-				{\small\begin{align*}
-					P(Y=j\mid\bold{X}=(x_1, x_2, \ldots, x_m))
-					 &= \frac{P(\bold{X}=(x_1, x_2, \ldots, x_m)\mid Y=j)\cdot P(Y=j)}{P(\bold{X}=\bold{x})}\\
-					 &= \frac{P(X_1=x_1\mid Y=j)\cdot\ldots\cdot P(X_m=x_m\mid Y=j)\cdot P(Y=j)}{P(\bold{X}=\bold{x})}.
+				{\scriptsize\begin{align*}
+					P(Y=j\mid\mathbf{X}=(x_1, x_2, \ldots, x_m))
+					 &= \frac{P(\mathbf{X}=(x_1, x_2, \ldots, x_m)\mid Y=j)\cdot P(Y=j)}{P(\mathbf{X}=\mathbf{x})}\\
+					 &= \frac{P(X_1=x_1\mid Y=j)\cdot\ldots\cdot P(X_m=x_m\mid Y=j)\cdot P(Y=j)}{P(\mathbf{X}=\mathbf{x})}.
 				\end{align*}}
-				\begin{align*}
-					\hat{y} = \argmax_{j\in classes} \frac{P(X_1=x_1\mid Y=j)\cdot\ldots\cdot P(X_m=x_m\mid Y=j)\cdot P(Y=j)}{P(\bold{X}=\bold{x})}\\
+				\scriptsize\begin{align*}
+					\hat{y} = \argmax_{j\in classes} \frac{P(X_1=x_1\mid Y=j)\cdot\ldots\cdot P(X_m=x_m\mid Y=j)\cdot P(Y=j)}{P(\mathbf{X}=\mathbf{x})}\\
 					=\argmax_{j\in classes} P(X_1=x_1\mid Y=j)\cdot\ldots\cdot P(X_m=x_m\mid Y=j)\cdot P(Y=j).
 				\end{align*}
 			}
