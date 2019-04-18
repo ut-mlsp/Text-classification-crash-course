@@ -15,6 +15,7 @@
 \usepackage{amssymb}
 \usepackage{etoolbox,refcount}
 \usepackage{multicol}
+\usepackage{hyperref}
 
 %########################################################
 %################## ARGMAX DECLARATION
@@ -200,7 +201,7 @@
 			\begin{itemize}
 				\item Naive Bayes
 				\item Linear Support Vector Machine(SVM)
-				\item Passive Aggressive
+				\item Passive Aggressive Classifier
 				\item Convolutional Neural Network(CNN)
 			\end{itemize}
 	}
@@ -344,13 +345,22 @@
 			\operatorname{sgn}(\sum_{i=1}^n y_i \alpha_i K(x_i, x) + \rho)
 			\end{equation*}
 		}
-		\subsection{Passive Aggressive}
+		\subsection{Passive Aggressive Classifier}
 		\frame{
-			\frametitle{Temp Frame}
-			This slide is temp.
+			\frametitle{Passive Aggressive}
+			\begin{itemize}
+				\item A margin based online learning algorithm
+				\item Perfect for classifying massive streams
+				\item Easy to implement and very fast
+				\item \textbf{Passive}: if correct classification, keep the model;
+				\item \textbf{Aggressive}: if incorrect classification, update to adjust to this misclassified example
+				\item See \url{http://koaning.io/passive-agressive-algorithms.html} for further reading
+			\end{itemize}
 		}
-			
 	\section{A Comparison among Models}
+	\frame{
+		\frametitle{A Comparison among Models}
+	}
 	
 	\section{The End}
 	\frame{
