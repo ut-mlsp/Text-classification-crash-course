@@ -122,12 +122,21 @@
 		%\subsection{Features}
 			\frame{
 				\frametitle{Features}
-				This slide is temp.
+				\begin{center}
+					\includegraphics[width=.8\linewidth]{images/post_table.png}
+				\end{center}
 			}
 		%\subsection{No. of Classes}
 			\frame{
 				\frametitle{No. of Classes}
-				This slide is temp.
+				\begin{itemize}
+					\item We concatenate three category columns into one; for example:
+					{\begin{tabular}{lll|l}
+						cat1&cat2&cat3&concatenate\\ \hline
+						vehicles&cars&light&vehicles::cars::light
+					\end{tabular}}
+					\item Then, we have 83 unique combinations of categories, eg. 83 classes in our classification task.
+				\end{itemize}
 			}
 	\section{Feature Extraction}
 	\frame{
@@ -311,6 +320,7 @@
 				It is convex!
 			}
 			\frame{
+				%TODO
 				\frametitle{Laplace/ Lidstone Smoothing Parameter($\alpha$)}
 				\begin{center}
 					\includegraphics[width=.6\linewidth]{images/plot1.png}\\
