@@ -4,12 +4,15 @@
 %####################### SET THEME
 %########################################################
 \usetheme{Goettingen}
+\setbeamertemplate{footline}[frame number]
 
 %########################################################
 %##################### ADD PACKAGES
 %########################################################
 \usepackage{tabularx}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{etoolbox,refcount}
 \usepackage{multicol}
 
@@ -50,7 +53,7 @@
 %########################################################
 %###################### TITLE PAGE
 %########################################################
-\title{An Experience with Text Classification in Datadays 2019}
+\title{An Experience with Text Classification in \textit{Datadays 2019}}
 \author{Majid Hajiheidari \and Amirmohammad Asadi}
 \date{April, 2019}
 
@@ -114,35 +117,23 @@
 				\item <3-> We only use text features(title \& description)!
 			\end{itemize}
 		}
-		\subsection{Features}
+		%\subsection{Features}
 			\frame{
-				\frametitle{Temp Frame}
+				\frametitle{Features}
 				This slide is temp.
 			}
-		\subsection{No. of Classes}
+		%\subsection{No. of Classes}
 			\frame{
-				\frametitle{Temp Frame}
+				\frametitle{No. of Classes}
 				This slide is temp.
 			}
-	\section{First approach: Naive Bayes}
-		\frame{
-			\frametitle{First Approach: Naive Bayes Classifier}
-			\begin{columns}
-				\begin{column}{.5\textwidth}
-					\includegraphics[width=\linewidth]{images/bayes_formula.jpg}
-					\begin{center}
-						Photo by \href{https://www.flickr.com/photos/mattbuck007/3676624894}{Matt Buck}
-					\end{center}
-				\end{column}
-				\begin{column}{.5\textwidth}
-					\begin{center}
-						\includegraphics[width=.8\linewidth]{images/Thomas_Bayes.png}
-					\end{center}
-				\end{column}
-			\end{columns}
-		}
+	\section{Feature Extraction}
+	\frame{
+		\frametitle{Feature Extraction}
+		Feature extraction is a dimensionality reduction process, where an initial set of raw variables is reduced to more manageable groups (features) for processing, while still accurately and completely describing the original data set.
+	}
 		\subsection{Count Vectorizer}
-			\frame{
+		\frame{
 				\frametitle{Vectorizing the Text: Count Vectorizer}
 				An example: We want to vectorize these 4 setences\footnote{Example from \href{https://github.com/rahulvasaikar/Bag-of-words}{Rahul Vasaikar}}:\\
 				\begin{enumerate}
@@ -173,7 +164,56 @@
 				\frametitle{Vectorizing the Text: Count Vectorizer}
 				N pair of samples
 			}
-		\subsection{Bayes Classifier}
+		\subsection{Tf-idf Vectorizer}
+		\frame{
+			\frametitle{Tf-idf Vectoizer}
+			\begin{itemize}
+				\item Tf-idf stands for term frequency-inverse document frequency
+				\item a statistical measure used to evaluate how important a word is to a document in a collection or corpus
+				\item the tf-idf weight is composed by two terms:
+					\scriptsize\begin{description}
+						\item [TF] \textbf{Term Frequency}, which measures how frequently a term occurs in a document.
+						\begin{equation*}
+						TF(t) = \frac{Number of times term t appears in a document}{Total number of terms in the document}
+						\end{equation*}
+						\item [IDF] \textbf{Inverse Document Frequency}, which measures how important a term is
+						\begin{equation*}
+						IDF(t) = \ln{\frac{Total number of documents}{Number of documents with term t in it}}
+						\end{equation*}
+					\end{description}
+			\end{itemize}
+		}
+		\frame{
+			\frametitle{Tf-idf Vectorizer: An Example}
+			Consider a document containing 100 words wherein the word \textit{cat} appears 3 times. The term frequency (i.e., tf) for cat is then $tf(cat) = \frac{3}{100} = 0.03$. Now, assume we have 10 million documents and the word cat appears in one thousand of these. Then, the inverse document frequency (i.e., idf) is calculated as $idf(cat) = \ln{\frac{10,000,000}{1,000} = 4}$. Thus, the Tf-idf weight is the product of these quantities: $tf\--idf(cat) = 0.03 * 4 = 0.12$.
+		}
+		\subsection{Embedding}
+		\frame{
+			\frametitle{Temp Frame}
+			This slide is temp.
+		}
+		
+	\section{Classification Algorithms}
+		\subsection{Naive Bayes}
+		\frame{
+			\frametitle{Naive Bayes Classifier}
+			\begin{columns}
+				\begin{column}{.5\textwidth}
+					\includegraphics[width=\linewidth]{images/bayes_formula.jpg}
+					\begin{center}
+						Photo by \href{https://www.flickr.com/photos/mattbuck007/3676624894}{Matt Buck}
+					\end{center}
+				\end{column}
+				\begin{column}{.5\textwidth}
+					\begin{center}
+						\includegraphics[width=.8\linewidth]{images/Thomas_Bayes.png}
+					\end{center}
+				\end{column}
+			\end{columns}
+		}
+		%\subsection{Count Vectorizer}
+			
+		%\subsection{Bayes Classifier}
 			\frame{
 				\frametitle{Bayes Classifier: Naive One!}
 				It is possible to show that accuracy is minimized, on average, by a
@@ -208,7 +248,7 @@
 				\frametitle{Bayes Classifier: Naive One!}
 				Let's dive into code!
 			}
-		\subsection{Hyperparameters}
+		%\subsection{Hyperparameters}
 			\frame{
 				\frametitle{Hyperparameters}
 				Two important hyperparameters:
@@ -236,27 +276,35 @@
 			\frame{
 				\frametitle{Grid Search}
 			}
-	\section{Second approach: CNN}
+		\subsection{SVM}
+		\subsection{Passive Aggressive}
+		\subsection{CNN}
+	%\section{First approach: Naive Bayes}
+		
+	%\section{Second approach: CNN}
 		\subsection{Sequence of vectors}
 			\frame{
 				\frametitle{Temp Frame}
 				This slide is temp.
 			}
-		\subsection{How We Embed}
+		%\subsection{How We Embed}
 			\frame{
 				\frametitle{Temp Frame}
 				This slide is temp.
 			}
-		\subsection{Patterns with CNN}
+		%\subsection{Patterns with CNN}
 			\frame{
 				\frametitle{Temp Frame}
 				This slide is temp.
 			}
-		\subsection{Dense Classifier}
+		%\subsection{Dense Classifier}
 			\frame{
 				\frametitle{Temp Frame}
 				This slide is temp.
 			}
+			
+	\section{A Comparison among Models}
+	
 	\section{The End}
 	\frame{
 		\frametitle{Thanks for your attention!}
