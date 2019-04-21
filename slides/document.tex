@@ -146,7 +146,7 @@
 		\subsection{Count Vectorizer}
 		\frame{
 				\frametitle{Vectorizing the Text: Count Vectorizer}
-				An example: We want to vectorize these 4 setences\footnote{Example from \href{https://github.com/rahulvasaikar/Bag-of-words}{Rahul Vasaikar}}:\\
+				An example: We want to vectorize these 4 sentences\footnote{Example from \href{https://github.com/rahulvasaikar/Bag-of-words}{Rahul Vasaikar}}:\\
 				\begin{enumerate}
 					\item Hello, how are you!
 					\item Win money, win from home.
@@ -170,10 +170,6 @@
 						4 & 0   & 1    & 0    & 1     & 0    & 0   & 0  & 0     & 0   & 1        & 0   & 1  
 					\end{tabular}
 				\end{enumerate}
-			}
-			\frame{
-				\frametitle{Vectorizing the Text: Count Vectorizer}
-				N pair of samples
 			}
 		\subsection{Tf-idf Vectorizer}
 		\frame{
@@ -299,16 +295,12 @@
 				\end{align*}
 			}
 			\frame{
-				\frametitle{Bayes Classifier: Naive One!}
-				Let's dive into code!
-			}
-		%\subsection{Hyperparameters}
-			\frame{
 				\frametitle{Hyperparameters}
 				Two important hyperparameters:
 				\begin{enumerate}
 					\item Size of the vocabulary;
 					\item Laplace/ Lidstone smoothing parameter($\alpha$).
+					\item Prior
 				\end{enumerate}
 			}
 			\frame{
@@ -323,10 +315,14 @@
 				%TODO
 				\frametitle{Laplace/ Lidstone Smoothing Parameter($\alpha$)}
 				\begin{center}
-					\includegraphics[width=.6\linewidth]{images/plot1.png}\\
+					\includegraphics[width=.6\linewidth]{images/plot2.png}\\
 					It is convex!
 					(to be completed)
 				\end{center}
+			}
+			\frame{
+				\frametitle{Bayes Classifier: Naive One!}
+				Let's dive into code!
 			}
 		\subsection{CNN}
 		
@@ -378,6 +374,10 @@
 			\operatorname{sgn}(\sum_{i=1}^n y_i \alpha_i K(x_i, x) + \rho)
 			\end{equation*}
 		}
+		\frame{
+			\frametitle{Linear SVM}
+			Let's dive into code!
+		}
 		\subsection{Passive Aggressive Classifier}
 		\frame{
 			\frametitle{Passive Aggressive}
@@ -389,6 +389,10 @@
 				\item \textbf{Aggressive}: if incorrect classification, update to adjust to this misclassified example
 				\item See \url{http://koaning.io/passive-agressive-algorithms.html} for further reading
 			\end{itemize}
+		}
+		\frame{
+			\frametitle{Passive Aggressive}
+			Let's dive into code!
 		}
 	\section{A Comparison among Models}
 	\frame{
