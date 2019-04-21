@@ -17,6 +17,12 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{svg}
+\usepackage{tikz}
+
+%########################################################
+%################## TIKZ SPECIFIC LIBRARIES
+%########################################################
+\usetikzlibrary{shapes}
 
 %########################################################
 %################## ARGMAX DECLARATION
@@ -342,41 +348,34 @@
 			}
 		\subsection{Linear SVM}
 		\frame{
-			\frametitle{Linear SVM}
-			\begin{itemize}
-				\item A non-probablistic classifier
-				\item A discriminative classifier formally defined by a separating hyperplane
-				\item The algorithm outputs an optimal hyperplane which categorizes new examples
-				\item A good separation is achieved by the hyperplane that has the largest distance to the nearest training-data point of any class
-			\end{itemize}
+			\frametitle{Support Vector Machines}
+			\begin{columns}
+				\begin{column}{.5\textwidth}
+					SVM constructs a hyperplane in multidimensional space to separate different classes. SVM generates optimal hyperplane in an iterative manner, which is used to minimize an error. The core idea of SVM is to find a maximum marginal hyperplane(MMH) that best divides the dataset into classes.
+				\end{column}
+				\begin{column}{.5\textwidth}
+					\includegraphics[width=\linewidth]{images/svm1.png}
+				\end{column}
+			\end{columns}
 		}
 		\frame{
-			\frametitle{Linear SVM: Behind the Scene}
-			Given training vectors $x_i \in \mathbb{R}^p$, i=1,...,n, in two classes, and a vector $y \in \{1, -1\}^n$, SVM classifier solves the following primal problem:
-			\scriptsize \begin{align*}
-			\begin{aligned}
-			\min_ {w, b, \zeta} \frac{1}{2} w^T w + C \sum_{i=1}^{n} \zeta_i\\\begin{split}\textrm {subject to } & y_i (w^T \phi (x_i) + b) \geq 1 - \zeta_i,\\& \zeta_i \geq 0, i=1, ..., n\end{split}
-			\end{aligned}
-			\end{align*}
-			\normalsize Its dual is:
-			\scriptsize \begin{align*}
-			\begin{aligned}
-			\min_{\alpha} \frac{1}{2} \alpha^T Q \alpha - e^T \alpha\\
-			\begin{split}\textrm {subject to } & y^T \alpha = 0\\& 0 \leq \alpha_i \leq C, i=1, ..., n
-			\end{split}
-			\end{aligned}
-			\end{align*}
+			\frametitle{How does SVM work?}
+			The main objective is to segregate the given dataset in the best possible way. The distance between the either nearest points is known as the margin. The objective is to select a hyperplane with the maximum possible margin between support vectors in the given dataset. SVM searches for the maximum marginal hyperplane in the following steps:
 		}
 		\frame{
-			\frametitle{Linear SVM: Behind the Scene(cont'd)}
-			where $e$ is the vector of all ones, $C > 0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij} \equiv y_i y_j K(x_i, x_j)$, where $K(x_i, x_j) = \phi (x_i)^T \phi (x_j)$ is the kernel. Here, training vectors are implicitly mapped into a higher (maybe infinite) dimensional space by the function $\phi$. The decision function is:
-			\begin{equation*}
-			\operatorname{sgn}(\sum_{i=1}^n y_i \alpha_i K(x_i, x) + \rho)
-			\end{equation*}
-		}
-		\frame{
-			\frametitle{Linear SVM}
-			Let's dive into code!
+			\frametitle{How does SVM work?}
+			\begin{enumerate}
+			\begin{columns}
+				\begin{column}{.45\textwidth}
+					\item Generate hyperplanes which segregates the classes in the best way. Left-hand side figure showing three hyperplanes black, blue and orange. Here, the blue and orange have higher classification error, but the black is separating the two classes correctly.
+					\includegraphics[width=.9\linewidth]{images/svm2.png}
+				\end{column}
+				\begin{column}{.45\textwidth}
+					\item Select the right hyperplane with the maximum segregation from the either nearest data points as shown in the right-hand side figure.\\[1.1cm]
+					\includegraphics[width=.9\linewidth]{images/svm3.png}
+				\end{column}
+			\end{columns}
+			\end{enumerate}
 		}
 		\subsection{Passive Aggressive Classifier}
 		\frame{
@@ -395,16 +394,55 @@
 			Let's dive into code!
 		}
 	\section{A Comparison among Models}
+	\subsection{Ensemble Learning}
 	\frame{
-		\frametitle{A Comparison among Models}
+		\frametitle{Ensemble Learning}
+		\begin{columns}
+			\begin{column}{.5\textwidth}
+				\begin{itemize}
+					\item CountVectorizer + MutinomialNB
+					\item TfidfVectorizer + MutinomialNB
+					\item CountVectorizer + ComplementNB
+					\item TfidfVectorizer + ComplementNB
+					\item CountVectorizer + SVM(Hinge)
+					\item CountVectorizer + SVM(HingeSq.)
+					\item TfidfVectorizer + SVM(Hinge)
+					\item TfidfVectorizer + SVM(HingeSq.)
+				\end{itemize}
+			\end{column}
+			\begin{column}{.25\textwidth}
+				PCA(100PC) + Structured data
+			\end{column}
+			\begin{column}{.25\textwidth}
+				5-Layer Perceptron
+			\end{column}
+		\end{columns}
+	}
+	\subsection{Comparison}
+	\frame{
+		\frametitle{Models Comparison}
+		\begin{table}[]
+			\begin{tabular}{|l||l|l|l|l|}
+				\hline
+				Name     & Accuracy & Vectorizer     & Classifier        & Text Strategy    \\ \hline
+				SVM      & 93.78    & Tf-Idf         & SVM               & Dual Vectorizers \\ 
+				Ensemble & 93.19    & Count + Tf-Idf & Various!          & Concat Text      \\ 
+				P-A      & 92.80    & Count          & Passive-Agressive & Concat Text      \\ 
+				CNN\footnote{Trained with 80\% of data!}      & 90.50     & Embedding      & CNN               & Dual CNN         \\ \hline
+			\end{tabular}
+		\end{table}
 	}
 	
 	\section{The End}
 	\frame{
 		\frametitle{Thanks for your attention!}
-		Codes in slides (in my GitHub):(github link)\\
-		Divar posts dataset:(divar link)\\
-		Any questions?\\
+		\begin{itemize}
+			\item Codes and slides(in MLSP GitHub):\\
+			\url{https://github.com/ut-mlsp/Text-classification-crash-course}
+			\item Divar posts dataset:\\
+			\url{https://research.cafebazaar.ir/visage/divar_datasets/}
+			\item Any questions?
+		\end{itemize}
 		
 	}
 \end{document}
