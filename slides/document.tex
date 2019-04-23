@@ -141,7 +141,7 @@
 						cat1&cat2&cat3&concatenate\\ \hline
 						vehicles&cars&light&vehicles::cars::light
 					\end{tabular}}
-					\item Then, we have 83 unique combinations of categories, eg. 83 classes in our classification task.
+					\item Then, we have 87 unique combinations of categories, eg. 87 classes in our classification task.
 				\end{itemize}
 			}
 	\section{Feature Extraction}
@@ -149,34 +149,6 @@
 		\frametitle{Feature Extraction}
 		Feature extraction is a dimensionality reduction process, where an initial set of raw variables is reduced to more manageable groups (features) for processing, while still accurately and completely describing the original data set.
 	}
-		\subsection{Count Vectorizer}
-		\frame{
-				\frametitle{Vectorizing the Text: Count Vectorizer}
-				An example: We want to vectorize these 4 sentences\footnote{Example from \href{https://github.com/rahulvasaikar/Bag-of-words}{Rahul Vasaikar}}:\\
-				\begin{enumerate}
-					\item Hello, how are you!
-					\item Win money, win from home.
-					\item Call me now
-					\item Hello, Call you tomorrow?
-				\end{enumerate}
-			}
-			\frame{
-				\frametitle{Vectorizing the Text: Count Vectorizer}
-				\begin{enumerate}
-					\item We first build a vocabulary:\\
-					\begin{math}
-					vocabulary = \left\{are, call, from, hello, home, how, me, money, now, tomorrow, win, you\right\}
-					\end{math}
-					\item Then, we vectorize each sentence based on the occurness of each word:
-					\scriptsize\begin{tabular}{l|llllllllllll}
-						& are & call & from & hello & home & how & me & money & now & tom... & win & you \\\hline
-						1       & 1   & 0    & 0    & 1     & 0    & 1   & 0  & 0     & 0   & 0        & 0   & 1   \\
-						2 & 0   & 0    & 1    & 0     & 1    & 0   & 0  & 1     & 0   & 0        & 2   & 0   \\
-						3               & 0   & 1    & 0    & 0     & 0    & 0   & 1  & 0     & 1   & 0        & 0   & 0   \\
-						4 & 0   & 1    & 0    & 1     & 0    & 0   & 0  & 0     & 0   & 1        & 0   & 1  
-					\end{tabular}
-				\end{enumerate}
-			}
 		\subsection{Tf-idf Vectorizer}
 		\frame{
 			\frametitle{Tf-idf Vectoizer}
@@ -199,6 +171,34 @@
 		\frame{
 			\frametitle{Tf-idf Vectorizer: An Example}
 			Consider a document containing 100 words wherein the word \textit{cat} appears 3 times. The term frequency (i.e., tf) for cat is then $tf(cat) = \frac{3}{100} = 0.03$. Now, assume we have 10 million documents and the word cat appears in one thousand of these. Then, the inverse document frequency (i.e., idf) is calculated as $idf(cat) = \ln{\frac{10,000,000}{1,000} = 4}$. Thus, the Tf-idf weight is the product of these quantities: $tf\--idf(cat) = 0.03 * 4 = 0.12$.
+		}
+		\subsection{Count Vectorizer}
+		\frame{
+			\frametitle{Vectorizing the Text: Count Vectorizer}
+			An example: We want to vectorize these 4 sentences\footnote{Example from \href{https://github.com/rahulvasaikar/Bag-of-words}{Rahul Vasaikar}}:\\
+			\begin{enumerate}
+				\item Hello, how are you!
+				\item Win money, win from home.
+				\item Call me now
+				\item Hello, Call you tomorrow?
+			\end{enumerate}
+		}
+		\frame{
+			\frametitle{Vectorizing the Text: Count Vectorizer}
+			\begin{enumerate}
+				\item We first build a vocabulary:\\
+				\begin{math}
+				vocabulary = \left\{are, call, from, hello, home, how, me, money, now, tomorrow, win, you\right\}
+				\end{math}
+				\item Then, we vectorize each sentence based on the occurness of each word:
+				\scriptsize\begin{tabular}{l|llllllllllll}
+					& are & call & from & hello & home & how & me & money & now & tom... & win & you \\\hline
+					1       & 1   & 0    & 0    & 1     & 0    & 1   & 0  & 0     & 0   & 0        & 0   & 1   \\
+					2 & 0   & 0    & 1    & 0     & 1    & 0   & 0  & 1     & 0   & 0        & 2   & 0   \\
+					3               & 0   & 1    & 0    & 0     & 0    & 0   & 1  & 0     & 1   & 0        & 0   & 0   \\
+					4 & 0   & 1    & 0    & 1     & 0    & 0   & 0  & 0     & 0   & 1        & 0   & 1  
+				\end{tabular}
+			\end{enumerate}
 		}
 		\subsection{Embedding}
 		\frame{
@@ -318,12 +318,10 @@
 				It is convex!
 			}
 			\frame{
-				%TODO
 				\frametitle{Laplace/ Lidstone Smoothing Parameter($\alpha$)}
 				\begin{center}
 					\includegraphics[width=.6\linewidth]{images/plot2.png}\\
 					It is convex!
-					(to be completed)
 				\end{center}
 			}
 			\frame{
@@ -386,6 +384,10 @@
 				\end{column}
 			\end{columns}
 			\end{enumerate}
+		}
+		\frame{
+			\frametitle{Linear SVM}
+			Let's dive into code!
 		}
 		\subsection{Passive Aggressive Classifier}
 		\frame{
